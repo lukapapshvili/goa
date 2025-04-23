@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>ანიმაციური მოძრაობა</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #box {
+      width: 50px;
+      height: 50px;
+      background-color: #3498db;
+      position: relative;
+    }
+
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="number" id="durationInput" placeholder="დრო წამებში" />
+  <button onclick="startAnimation()">დაწყება</button>
+
+  <div id="box"></div>
+
+  <script>
+    function startAnimation() {
+      const box = document.getElementById('box');
+      const durationInput = document.getElementById('durationInput');
+      const totalDuration = parseFloat(durationInput.value) * 1000;
+
+      if (isNaN(totalDuration) || totalDuration <= 0) {
+        alert('გთხოვ შეიყვანე სწორი დრო წამებში!');
+        return;
+      }
+
+      const stepDuration = totalDuration / 4;
+
+      // Reset position
+      box.style.transition = 'none';
+      box.style.left = '0px';
+      box.style.top = '0px';
+
+      // დაიცადოს ერთი frame, სანამ transition ხელახლა ჩაირთვება
+      setTimeout(() => {
+        box.style.transition = `all ${stepDuration}ms linear`;
+
+        // 1. მარჯვნივ
+        box.style.left = '200px';
+        setTimeout(() => {
+          // 2. ქვემოთ
+          box.style.top = '200px';
+          setTimeout(() => {
+            // 3. მარცხნივ
+            box.style.left = '0px';
+            setTimeout(() => {
+              // 4. ზემოთ (საწყისი ადგილი)
+              box.style.top = '0px';
+            }, stepDuration);
+          }, stepDuration);
+        }, stepDuration);
+      }, 20); // პატარა დაყოვნება transition-ის გასააქტიურებლად
+    }
+  </script>
+
+</body>
+</html>

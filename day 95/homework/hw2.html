@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>კვადრატი -> წრე -> კვადრატი</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #4CAF50;
+      transition: border-radius 1s ease;
+      cursor: pointer;
+    }
+
+    .circle {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box" id="shape"></div>
+
+  <script>
+    const shape = document.getElementById('shape');
+
+    shape.addEventListener('click', () => {
+      shape.classList.add('circle');
+
+      setTimeout(() => {
+        shape.classList.remove('circle');
+      }, 1000); // 1 წამი წრედ ყოფნა
+    });
+  </script>
+
+</body>
+</html>

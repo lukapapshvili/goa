@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note Taker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#" class="logo">Note Taker</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="note-container">
+      <textarea id="note-text" rows="10" cols="30" placeholder="Write your note here..."></textarea>
+      <button id="save-note-button">Save Note</button>
+      <button id="clear-note-button">Clear Note</button>
+    </section>
+    <section class="note-list">
+      <h2>Notes</h2>
+      <ul id="note-list-ul">
+        <!-- notes will be displayed here -->
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Note Taker</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

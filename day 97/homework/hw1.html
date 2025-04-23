@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>რეგისტრაცია</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s ease;
+      padding: 20px;
+    }
+    .form-container {
+      max-width: 300px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>რეგისტრაცია</h2>
+    <input type="text" id="name" placeholder="სახელი">
+    <input type="number" id="age" placeholder="ასაკი" oninput="checkAge()">
+    <button onclick="submitForm()">დადასტურება</button>
+  </div>
+
+  <script>
+    function checkAge() {
+      const age = parseInt(document.getElementById('age').value);
+      if (!isNaN(age)) {
+        if (age >= 18) {
+          document.body.style.backgroundColor = "#d4edda"; // მწვანე
+        } else {
+          document.body.style.backgroundColor = "#f8d7da"; // წითელი
+        }
+      } else {
+        document.body.style.backgroundColor = "white";
+      }
+    }
+
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      alert(`მომხმარებელი: ${name}, ასაკი: ${age}`);
+    }
+  </script>
+
+</body>
+</html>

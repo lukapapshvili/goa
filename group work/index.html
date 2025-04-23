@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Signup</title>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+  <style>
+    /* Same styling from previous index.html version */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+    }
+
+    .wrapper {
+      width: 850px;
+      height: 500px;
+      background: #fff;
+      border-radius: 15px;
+      display: flex;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .form-container {
+      width: 100%;
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .form-box {
+      width: 50%;
+      padding: 40px;
+      transition: all 0.5s ease;
+    }
+
+    .signup-box, .signin-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .social-icons a {
+      text-decoration: none;
+      color: #555;
+      font-size: 24px;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+      color: #4b2be1;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 10px 35px 10px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-box label {
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      background: #fff;
+      padding: 0 5px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .input-box i {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+    }
+
+    .btn {
+      background: #4b2be1;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #321fad;
+      transform: scale(1.05);
+    }
+
+    .switch-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to left, #4b2be1, #6a11cb);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 40px;
+      z-index: 1;
+      transition: all 0.6s ease-in-out;
+    }
+
+    .switch-panel h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .switch-panel p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .switch-btn {
+      padding: 10px 20px;
+      border: 1px solid #fff;
+      background: transparent;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .switch-btn:hover {
+      background: #fff;
+      color: #4b2be1;
+      transform: scale(1.05);
+    }
+
+    #toggle:checked ~ .form-container {
+      transform: translateX(-50%);
+    }
+
+    #toggle:checked ~ .switch-panel {
+      right: 50%;
+    }
+
+    .form-text {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <input type="checkbox" id="toggle">
+  <div class="wrapper">
+    <div class="form-container">
+      <!-- Sign Up -->
+      <div class="form-box signup-box">
+        <h2 class="title">Create Account</h2>
+        <div class="social-icons">
+          <a href="#"><i class='bx bxl-google'></i></a>
+          <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+          <a href="#"><i class='bx bxl-github'></i></a>
+          <a href="#"><i class='bx bxl-linkedin-square'></i></a>
+        </div>
+        <p class="form-text">or use your email for registration</p>
+        <div class="input-box">
+          <input type="text" required>
+          <label>Username</label>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="email" required>
+          <label>Email</label>
+          <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" required>
+          <label>Password</label>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button class="btn" onclick="location.href='notes.html'">Sign Up</button>
+      </div>
+
+      <!-- Sign In -->
+      <div class="form-box signin-box">
+        <h2 class="title">Welcome Back</h2>
+        <div class="social-icons">
+          <a href="#"><i class='bx bxl-google'></i></a>
+          <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+          <a href="#"><i class='bx bxl-github'></i></a>
+          <a href="#"><i class='bx bxl-linkedin-square'></i></a>
+        </div>
+        <p class="form-text">or use your account credentials</p>
+        <div class="input-box">
+          <input type="email" required>
+          <label>Email</label>
+          <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" required>
+          <label>Password</label>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button class="btn" onclick="location.href='notes.html'">Sign In</button>
+      </div>
+    </div>
+
+    <!-- Toggle Panel -->
+    <div class="switch-panel">
+      <h2>Already have an account?</h2>
+      <p>Click below to sign in and access your account</p>
+      <label for="toggle" class="switch-btn">Sign In</label>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Notes</title>
+  
+  <!-- Favicon for the browser tab -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      height: 100vh;
+      justify-content: flex-start;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 36px;
+      color: #fff;
+      letter-spacing: 2px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    /* Search Bar */
+    .search-bar {
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    /* Hamburger Menu */
+    .hamburger-menu {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 25px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .hamburger-menu div {
+      height: 5px;
+      background-color: #fff;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      position: fixed;
+      top: 60px;
+      right: 20px;
+      background-color: #2575fc;
+      color: #fff;
+      border-radius: 10px;
+      padding: 10px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      width: 200px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .dropdown-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 8px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #1a61c4;
+    }
+
+    .notes-list {
+      width: 100%;
+      max-width: 650px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 100px;
+    }
+
+    .note {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .note:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .note .note-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .note .timestamp {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .note button {
+      background-color: #2575fc;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .note button:hover {
+      background-color: #1a61c4;
+      transform: translateY(-2px);
+    }
+
+    /* Floating Button for New Note */
+    .floating-input {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 70px;
+      height: 70px;
+      background-color: #2575fc;
+      color: #fff;
+      font-size: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .floating-input:hover {
+      background-color: #1a61c4;
+      transform: scale(1.1);
+    }
+
+    /* New Note Input Area */
+    .new-note-input {
+      position: fixed;
+      bottom: 120px;
+      right: 20px;
+      width: 300px;
+      background-color: #fff;
+      color: #2575fc;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.3s ease;
+      max-width: 100%;
+      overflow: hidden;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .new-note-input textarea {
+      width: 100%;
+      min-height: 60px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      border: 2px solid #ddd;
+      resize: none;
+      max-width: 100%;
+      box-sizing: border-box;
+      word-wrap: break-word;
+    }
+
+    .new-note-input button {
+      padding: 12px;
+      background-color: #2575fc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .new-note-input button:hover {
+      background-color: #1a61c4;
+    }
+
+    .file-input {
+      background-color: #f4f4f4;
+      border: none;
+      padding: 10px;
+      color: #2575fc;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .file-input:hover {
+      background-color: #ddd;
+    }
+
+    .media-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+      max-height: 250px;
+      overflow: auto;
+    }
+
+    .media-container img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+      max-height: 200px;
+      margin-bottom: 10px;
+    }
+
+    .media-container audio {
+      width: 100%;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📝 Your Notes</h1>
+
+  <!-- Search Bar -->
+  <input type="text" class="search-bar" id="searchInput" placeholder="Search your notes..." oninput="searchNotes()">
+
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu" onclick="toggleDropdownMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown-menu" id="dropdownMenu">
+    <a href="#" onclick="showReminder()">Reminders</a>
+    <a href="#" onclick="showLabels()">Labels</a>
+    <a href="#" onclick="showArchive()">Archive</a>
+    <a href="#" onclick="showTrash()">Trash</a>
+  </div>
+
+  <!-- Notes List -->
+  <div class="notes-list" id="notesList"></div>
+
+  <!-- Floating Button for New Note -->
+  <div class="floating-input" onclick="toggleNoteInput()">➕</div>
+
+  <!-- New Note Input Area -->
+  <div class="new-note-input" id="newNoteInput">
+    <textarea id="noteTitle" placeholder="Note Title"></textarea>
+    <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+
+    <!-- Display the image and audio after selecting -->
+    <div id="mediaContainer" class="media-container"></div>
+
+    <input type="file" id="noteImage" class="file-input" accept="image/*" onchange="previewMedia('image')">
+    <input type="file" id="noteAudio" class="file-input" accept="audio/*" onchange="previewMedia('audio')">
+    <button onclick="saveNote()">Save Note</button>
+
+    
+  </div>
+
+  <script>
+    let editingNote = null;
+    let dropdownMenuVisible = false;
+
+    // Search Notes Function
+    function searchNotes() {
+      const searchInput = document.getElementById("searchInput").value.toLowerCase();
+      const notes = document.querySelectorAll('.note');
+
+      notes.forEach(note => {
+        const title = note.querySelector('.note-title').textContent.toLowerCase();
+        const content = note.querySelector('.note-content').textContent.toLowerCase();
+        if (title.includes(searchInput) || content.includes(searchInput)) {
+          note.style.display = 'block';
+        } else {
+          note.style.display = 'none';
+        }
+      });
+    }
+
+    // Toggle Dropdown Menu
+    function toggleDropdownMenu() {
+      const menu = document.getElementById("dropdownMenu");
+      dropdownMenuVisible = !dropdownMenuVisible;
+      menu.style.display = dropdownMenuVisible ? 'flex' : 'none';
+    }
+
+    // Show Note Categories (Reminders, Labels, etc.)
+    function showReminder() {
+      alert('Reminder feature is under construction!');
+    }
+    function showLabels() {
+      alert('Labels feature is under construction!');
+    }
+    function showArchive() {
+      alert('Archive feature is under construction!');
+    }
+    function showTrash() {
+      alert('Trash feature is under construction!');
+    }
+
+    // Toggle Note Input Area for New Note
+    function toggleNoteInput() {
+      const noteInputArea = document.getElementById("newNoteInput");
+      noteInputArea.style.display = noteInputArea.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    // Preview Image or Audio
+    function previewMedia(type) {
+      const fileInput = type === 'image' ? document.getElementById("noteImage") : document.getElementById("noteAudio");
+      const mediaContainer = document.getElementById("mediaContainer");
+
+      const file = fileInput.files[0];
+      if (type === 'image' && file) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        mediaContainer.appendChild(img);
+      } else if (type === 'audio' && file) {
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        const source = document.createElement('source');
+        source.src = URL.createObjectURL(file);
+        audio.appendChild(source);
+        mediaContainer.appendChild(audio);
+      }
+    }
+
+    // Save Note Function
+    function saveNote() {
+      const title = document.getElementById("noteTitle").value;
+      const content = document.getElementById("noteInput").value;
+      const image = document.getElementById("noteImage").files[0];
+      const audio = document.getElementById("noteAudio").files[0];
+
+      if (title.trim() && content.trim()) {
+        const note = {
+          title,
+          content,
+          timestamp: new Date().toLocaleString(),
+          image,
+          audio
+        };
+
+        if (editingNote) {
+          // Update existing note
+          editingNote.querySelector('.note-title').textContent = note.title;
+          editingNote.querySelector('.note-content').textContent = note.content;
+          editingNote.querySelector('.timestamp').textContent = note.timestamp;
+        } else {
+          // Create new note
+          const noteElement = document.createElement('div');
+          noteElement.className = 'note';
+          noteElement.innerHTML = `
+            <div class="note-title">${note.title}</div>
+            <div class="note-content">${note.content}</div>
+            <div class="timestamp">${note.timestamp}</div>
+            <button class="edit-btn" onclick="editNote(event)">Edit</button>
+          `;
+          
+          if (note.image) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(note.image);
+            noteElement.appendChild(img);
+          }
+          
+          if (note.audio) {
+            const audio = document.createElement('audio');
+            audio.controls = true;
+            const source = document.createElement('source');
+            source.src = URL.createObjectURL(note.audio);
+            audio.appendChild(source);
+            noteElement.appendChild(audio);
+          }
+          
+          document.getElementById("notesList").prepend(noteElement);
+        }
+
+        resetNoteInput();
+      }
+    }
+
+    // Reset the input area after saving or editing a note
+    function resetNoteInput() {
+      document.getElementById("noteTitle").value = '';
+      document.getElementById("noteInput").value = '';
+      document.getElementById("noteImage").value = '';
+      document.getElementById("noteAudio").value = '';
+      document.getElementById("mediaContainer").innerHTML = '';
+      editingNote = null;
+      toggleNoteInput();
+    }
+
+    // Edit an existing note
+    function editNote(event) {
+      const note = event.target.closest('.note');
+      const title = note.querySelector('.note-title').textContent;
+      const content = note.querySelector('.note-content').textContent;
+
+      document.getElementById("noteTitle").value = title;
+      document.getElementById("noteInput").value = content;
+
+      editingNote = note;
+      toggleNoteInput();
+    }
+  </script>
+</body>
+</html>

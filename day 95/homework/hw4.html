@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Animation</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: 'Courier New', monospace;
+    }
+
+    #output {
+      font-size: 30px;
+      margin-top: 20px;
+      white-space: nowrap; /* prevents text from wrapping */
+      overflow: hidden;    /* hides overflow */
+      border-right: 2px solid #3498db; /* cursor effect */
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="inputText" placeholder="შეიყვანე ტექსტი" />
+  <button onclick="startTyping()">დაიწყე ანიმაცია</button>
+  
+  <div id="output"></div>
+
+  <script>
+    function startTyping() {
+      const inputText = document.getElementById('inputText').value;
+      const outputDiv = document.getElementById('output');
+      let index = 0;
+
+      // Empty output before starting typing
+      outputDiv.textContent = '';
+
+      // Time delay between each character typing
+      const typingSpeed = 150; // milliseconds
+
+      // Function to type one character at a time
+      function typeCharacter() {
+        if (index < inputText.length) {
+          outputDiv.textContent += inputText[index];
+          index++;
+          setTimeout(typeCharacter, typingSpeed); // Recursive call for next character
+        }
+      }
+
+      typeCharacter(); // Start typing the first character
+    }
+  </script>
+
+</body>
+</html>

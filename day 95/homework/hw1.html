@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>ღილაკზე დაჭერა</title>
+  <style>
+    .new-div {
+      padding: 10px;
+      margin: 10px;
+      background-color: lightblue;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="addButton">დაამატე ელემენტი</button>
+
+  <script>
+    const button = document.getElementById('addButton');
+
+    button.addEventListener('click', function() {
+      const newDiv = document.createElement('div');
+      newDiv.classList.add('new-div');
+      newDiv.textContent = 'ახალი ელემენტი დაემატა!';
+      document.body.appendChild(newDiv);
+    });
+  </script>
+
+</body>
+</html>
