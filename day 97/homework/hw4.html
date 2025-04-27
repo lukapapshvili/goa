@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>მარტივი კალკულატორი</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    .calculator {
+      max-width: 300px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="number"], select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+    }
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>კალკულატორი</h2>
+    <input type="number" id="num1" placeholder="პირველი რიცხვი">
+    <input type="number" id="num2" placeholder="მეორე რიცხვი">
+
+    <select id="operation">
+      <option value="+">დამატება (+)</option>
+      <option value="-">გამოკლება (-)</option>
+      <option value="*">გამრავლება (*)</option>
+      <option value="/">გაყოფა (/)</option>
+    </select>
+
+    <button onclick="calculate()">გამოთვლა</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const op = document.getElementById('operation').value;
+      let result;
+
+      if (isNaN(num1) || isNaN(num2)) {
+        result = 'გთხოვთ შეიყვანოთ ორივე რიცხვი';
+      } else {
+        switch (op) {
+          case '+':
+            result = num1 + num2;
+            break;
+          case '-':
+            result = num1 - num2;
+            break;
+          case '*':
+            result = num1 * num2;
+            break;
+          case '/':
+            result = num2 !== 0 ? num1 / num2 : 'გაყოფა ნულზე არ შეიძლება';
+            break;
+          default:
+            result = 'არასწორი ოპერაცია';
+        }
+      }
+
+      document.getElementById('result').textContent = `შედეგი: ${result}`;
+    }
+  </script>
+
+</body>
+</html>

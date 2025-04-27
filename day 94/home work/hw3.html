@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <title>Child Color Change</title>
+  <style>
+    .parent {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .child {
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="parent">
+  <div class="child">Child 1</div>
+  <div class="child">Child 2</div>
+  <div class="child">Child 3</div>
+  <div class="child">Child 4</div>
+  <div class="child">Child 5</div>
+</div>
+
+<script>
+  const colors = ['red', 'blue', 'green', 'orange', 'purple', 'pink', 'yellow', 'teal', 'brown'];
+
+  const parent = document.querySelector('.parent');
+  const children = parent.querySelectorAll('.child');
+
+  // for loop-ის გამოყენება
+  for (let i = 0; i < children.length; i++) {
+    // ციკლის მიხედვით მიანიჭეთ child[n] შესაბამისი ფერი
+    children[i].style.backgroundColor = colors[i % colors.length];
+  }
+</script>
+
+</body>
+</html>
