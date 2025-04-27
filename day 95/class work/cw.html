@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ანიმაცია</title>
+    <style>
+        #myDiv {
+            width: 200px;
+            height: 200px;
+            background-color: #4CAF50;
+            text-align: center;
+            line-height: 200px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: opacity 1s ease-out, transform 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+<div id="myDiv">დაკლიკე მე</div>
+
+<script>
+    const div = document.getElementById('myDiv');
+
+    div.addEventListener('click', function() {
+        // როდესაც დივი დაიკლიკება, გატარებული იქნება ანიმაცია
+        div.style.opacity = 0; // პირველი 1 წამი გაქრება
+        div.style.transform = 'scale(0.5)'; // ზომა შემცირდება
+
+        // გამორთვის შემდეგ, შემდეგ 1 წამში გამოჩნდება
+        setTimeout(() => {
+            div.style.opacity = 1; // დაბრუნდება ორიგინალურ მდგომარეობაში
+            div.style.transform = 'scale(1)';
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>

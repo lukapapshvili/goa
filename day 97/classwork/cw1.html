@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Changes</title>
+</head>
+<body>
+
+    <input type="text" id="userInput" placeholder="დაწერე რამე..." />
+    <p>წაშლილი ასოები: <span id="deletedCount">0</span></p>
+    <p>დამატებული ასოები: <span id="addedCount">0</span></p>
+
+    <script>
+        let previousValue = '';
+        let deletedCount = 0;
+        let addedCount = 0;
+
+        const userInput = document.getElementById('userInput');
+        const deletedSpan = document.getElementById('deletedCount');
+        const addedSpan = document.getElementById('addedCount');
+
+        userInput.addEventListener('input', () => {
+            const currentValue = userInput.value;
+
+            // ვათვლით წაშლილ ასოებს
+            if (currentValue.length < previousValue.length) {
+                deletedCount += previousValue.length - currentValue.length;
+            }
+
+            // ვათვლით დამატებულ ასოებს
+            if (currentValue.length > previousValue.length) {
+                addedCount += currentValue.length - previousValue.length;
+            }
+
+            // განახლდება კონსოლში და UI-ში
+            console.log(`წაშლილი ასოები: ${deletedCount}, დამატებული ასოები: ${addedCount}`);
+            deletedSpan.textContent = deletedCount;
+            addedSpan.textContent = addedCount;
+
+            previousValue = currentValue;
+        });
+    </script>
+
+</body>
+</html>
